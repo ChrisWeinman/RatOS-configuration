@@ -9,7 +9,7 @@ chmod 664 "$logfile"
 echo "$(date +"%Y-%m-%d %T"): MCU Detected" >> "$logfile"
 
 # Query moonraker to get printer state
-state=$(curl ${moonraker%/}/printer/info | \
+state=$(curl -m 10 ${moonraker%/}/printer/info | \
     python3 -c "import sys, json; print(json.load(sys.stdin)['result']['state'])")
 echo State is \"${state}\"
 
